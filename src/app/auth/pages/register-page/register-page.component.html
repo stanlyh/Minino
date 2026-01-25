@@ -4,25 +4,31 @@
     <div class="field">
       <label for="name">Nombre</label>
       <input id="name" formControlName="name" />
-      <div class="error" *ngIf="submitted && form.get('name')?.invalid">Nombre requerido</div>
+      @if (submitted && form.get('name')?.invalid) {
+        <div class="error">Nombre requerido</div>
+      }
     </div>
 
     <div class="field">
       <label for="email">Email</label>
       <input id="email" type="email" formControlName="email" />
-      <div class="error" *ngIf="submitted && form.get('email')?.invalid">
-        <span *ngIf="form.get('email')?.errors?.['required']">Email requerido</span>
-        <span *ngIf="form.get('email')?.errors?.['email']">Email inválido</span>
-      </div>
+      @if (submitted && form.get('email')?.invalid) {
+        <div class="error">
+          @if (form.get('email')?.errors?.['required']) { <span>Email requerido</span> }
+          @if (form.get('email')?.errors?.['email']) { <span>Email inválido</span> }
+        </div>
+      }
     </div>
 
     <div class="field">
       <label for="password">Contraseña</label>
       <input id="password" type="password" formControlName="password" />
-      <div class="error" *ngIf="submitted && form.get('password')?.invalid">
-        <span *ngIf="form.get('password')?.errors?.['required']">Contraseña requerida</span>
-        <span *ngIf="form.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</span>
-      </div>
+      @if (submitted && form.get('password')?.invalid) {
+        <div class="error">
+          @if (form.get('password')?.errors?.['required']) { <span>Contraseña requerida</span> }
+          @if (form.get('password')?.errors?.['minlength']) { <span>Mínimo 6 caracteres</span> }
+        </div>
+      }
     </div>
 
     <div class="field">
@@ -30,7 +36,9 @@
       <input id="confirmPassword" type="password" formControlName="confirmPassword" />
     </div>
 
-    <div class="error" *ngIf="submitted && form.errors?.['passwordsMismatch']">Las contraseñas no coinciden</div>
+    @if (submitted && form.errors?.['passwordsMismatch']) {
+      <div class="error">Las contraseñas no coinciden</div>
+    }
 
     <button type="submit" [disabled]="form.invalid">Registrar</button>
   </form>
