@@ -3,23 +3,22 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'app-forgot-password-page',
   standalone: true,
   imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css'],
+  templateUrl: './forgot-password-page.component.html',
+  styleUrls: ['./forgot-password-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPageComponent {
+export class ForgotPasswordPageComponent {
   form: FormGroup;
-
   submitted = false;
+  sent = false;
   serverError?: string;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -27,9 +26,10 @@ export class LoginPageComponent {
     this.submitted = true;
     if (this.form.invalid) return;
 
-    const { email, password } = this.form.value;
-    // TODO: llamar al servicio de autenticación aquí.
-    console.log('Login intento:', { email, password });
+    const { email } = this.form.value;
+    // TODO: llamar al servicio para enviar correo de recuperación
+    console.log('Recuperar contraseña para:', email);
+    this.sent = true;
     this.serverError = undefined;
   }
 }
