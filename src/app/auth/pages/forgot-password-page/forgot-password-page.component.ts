@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-forgot-password-page',
@@ -11,6 +12,8 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForgotPasswordPageComponent {
+  private authService = inject(AuthService);
+
   form: FormGroup;
   submitted = false;
   sent = false;
@@ -22,14 +25,14 @@ export class ForgotPasswordPageComponent {
     });
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     this.submitted = true;
     if (this.form.invalid) return;
 
     const { email } = this.form.value;
-    // TODO: llamar al servicio para enviar correo de recuperación
-    console.log('Recuperar contraseña para:', email);
-    this.sent = true;
+    const result = await this.authService.forgotPassword(email);
+
+    this.sent = result.success;
     this.serverError = undefined;
   }
 }

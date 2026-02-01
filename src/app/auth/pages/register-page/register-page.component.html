@@ -79,6 +79,12 @@
       </button>
     </form>
 
+    @if (serverError) {
+      <div class="mt-4 rounded-lg bg-dracula-red/20 p-3 text-center text-sm text-dracula-red">
+        {{ serverError }}
+      </div>
+    }
+
     <!-- Link to login -->
     <p class="mt-6 text-center text-sm text-dracula-comment">
       Ya tienes cuenta?

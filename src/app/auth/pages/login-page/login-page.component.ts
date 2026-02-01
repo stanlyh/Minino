@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -11,8 +12,10 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent {
-  form: FormGroup;
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
+  form: FormGroup;
   submitted = false;
   serverError?: string;
 
@@ -23,13 +26,17 @@ export class LoginPageComponent {
     });
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     this.submitted = true;
     if (this.form.invalid) return;
 
     const { email, password } = this.form.value;
-    // TODO: llamar al servicio de autenticación aquí.
-    console.log('Login intento:', { email, password });
-    this.serverError = undefined;
+    const result = await this.authService.login(email, password);
+
+    if (result.success) {
+      this.router.navigate(['/home']);
+    } else {
+      this.serverError = result.error;
+    }
   }
 }
