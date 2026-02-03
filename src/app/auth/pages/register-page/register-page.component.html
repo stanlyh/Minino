@@ -1,8 +1,8 @@
-<div class="flex min-h-screen items-center justify-center bg-dracula-bg px-4">
-  <div class="w-full max-w-md rounded-2xl bg-dracula-current p-8 shadow-lg shadow-black/30">
-    <h1 class="mb-6 text-center text-3xl font-bold text-dracula-purple">Registro de usuario</h1>
+<div class="flex min-h-screen items-center justify-center bg-dracula-bg px-4 py-6 sm:px-6 lg:px-8">
+  <div class="w-full max-w-sm rounded-2xl bg-dracula-current p-6 shadow-lg shadow-black/30 sm:max-w-md sm:p-8 lg:max-w-lg lg:p-10">
+    <h1 class="mb-6 text-center text-2xl font-bold text-dracula-purple sm:text-3xl">Registro de usuario</h1>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-5">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-4 sm:space-y-5">
       <!-- Name -->
       <div>
         <label for="name" class="mb-1 block text-sm font-medium text-dracula-fg">Nombre</label>
@@ -10,7 +10,7 @@
           id="name"
           formControlName="name"
           placeholder="Tu nombre completo"
-          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-4 py-2.5 text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40"
+          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-3 py-2 text-sm text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40 sm:px-4 sm:py-2.5 sm:text-base"
         />
         @if (submitted && form.get('name')?.invalid) {
           <div class="mt-1 text-sm text-dracula-red">Nombre requerido</div>
@@ -25,7 +25,7 @@
           type="email"
           formControlName="email"
           placeholder="correo@ejemplo.com"
-          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-4 py-2.5 text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40"
+          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-3 py-2 text-sm text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40 sm:px-4 sm:py-2.5 sm:text-base"
         />
         @if (submitted && form.get('email')?.invalid) {
           <div class="mt-1 text-sm text-dracula-red">
@@ -43,7 +43,7 @@
           type="password"
           formControlName="password"
           placeholder="******"
-          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-4 py-2.5 text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40"
+          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-3 py-2 text-sm text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40 sm:px-4 sm:py-2.5 sm:text-base"
         />
         @if (submitted && form.get('password')?.invalid) {
           <div class="mt-1 text-sm text-dracula-red">
@@ -61,7 +61,7 @@
           type="password"
           formControlName="confirmPassword"
           placeholder="******"
-          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-4 py-2.5 text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40"
+          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-3 py-2 text-sm text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40 sm:px-4 sm:py-2.5 sm:text-base"
         />
       </div>
 
@@ -73,7 +73,7 @@
       <button
         type="submit"
         [disabled]="form.invalid"
-        class="w-full rounded-lg bg-dracula-purple py-2.5 font-semibold text-dracula-bg transition hover:bg-dracula-pink disabled:cursor-not-allowed disabled:opacity-50"
+        class="w-full rounded-lg bg-dracula-purple py-2.5 font-semibold text-dracula-bg transition hover:bg-dracula-pink disabled:cursor-not-allowed disabled:opacity-50 sm:py-3"
       >
         Registrar
       </button>
