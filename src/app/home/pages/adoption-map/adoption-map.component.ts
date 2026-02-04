@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  NgZone,
   OnDestroy,
   inject,
   input,
@@ -15,7 +16,7 @@ import { AdoptionHome } from '../../services/cats.service';
   selector: 'app-adoption-map',
   standalone: true,
   template: `
-    <div #mapContainer class="h-64 w-full rounded-xl sm:h-80 lg:h-96"></div>
+    <div #mapContainer class="h-64 w-full overflow-hidden rounded-xl sm:h-80 lg:h-96"></div>
   `,
   styles: `
     :host { display: block; }
@@ -25,15 +26,26 @@ import { AdoptionHome } from '../../services/cats.service';
 export class AdoptionMapComponent implements AfterViewInit, OnDestroy {
   readonly homes = input.required<AdoptionHome[]>();
   private readonly mapContainer = viewChild.required<ElementRef<HTMLDivElement>>('mapContainer');
+  private readonly ngZone = inject(NgZone);
   private map?: L.Map;
 
   ngAfterViewInit(): void {
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => this.initMap(), 0);
+    });
+  }
+
+  private initMap(): void {
     const el = this.mapContainer().nativeElement;
 
-    this.map = L.map(el).setView([-0.5015, -78.5616], 12);
+    this.map = L.map(el, {
+      center: [-0.5015, -78.5616],
+      zoom: 12,
+    });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 19,
     }).addTo(this.map);
 
     const icon = L.icon({
@@ -52,6 +64,11 @@ export class AdoptionMapComponent implements AfterViewInit, OnDestroy {
           `<strong>${home.cat_name}</strong><br/>Adoptado por: ${home.owner_name}`
         );
     }
+
+    // Forzar recálculo del tamaño del mapa
+    setTimeout(() => {
+      this.map?.invalidateSize();
+    }, 100);
   }
 
   ngOnDestroy(): void {
