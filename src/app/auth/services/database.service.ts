@@ -105,16 +105,16 @@ export class DatabaseService {
     if (catCount && catCount.c > 0) return;
 
     const cats = [
-      ['Luna', 'Mestizo', 8, 'Juguetona y cariñosa, le encanta perseguir mariposas.', 'https://placekitten.com/400/300'],
-      ['Milo', 'Siames', 12, 'Tranquilo y observador, perfecto compañero de lectura.', 'https://placekitten.com/401/300'],
-      ['Canela', 'Persa', 6, 'Dulce y dormilona, ama los rincones soleados.', 'https://placekitten.com/402/300'],
-      ['Simba', 'Maine Coon', 10, 'Aventurero y valiente, siempre explorando nuevos lugares.', 'https://placekitten.com/403/300'],
-      ['Nina', 'Angora', 4, 'Timida al principio pero muy leal cuando te conoce.', 'https://placekitten.com/404/300'],
-      ['Felix', 'Mestizo', 18, 'Independiente y elegante, le gusta observar desde las alturas.', 'https://placekitten.com/405/300'],
-      ['Cleo', 'Bengal', 7, 'Energetica y atletica, necesita espacio para jugar.', 'https://placekitten.com/406/300'],
-      ['Tomas', 'Ragdoll', 14, 'Relajado y sociable, se lleva bien con otros animales.', 'https://placekitten.com/407/300'],
-      ['Mia', 'Mestizo', 3, 'Curiosa y traviesa, siempre buscando aventuras.', 'https://placekitten.com/408/300'],
-      ['Pancho', 'Bombay', 24, 'Calmado y maduro, ideal para hogares tranquilos.', 'https://placekitten.com/409/300'],
+      ['Luna', 'Mestizo', 8, 'Juguetona y cariñosa, le encanta perseguir mariposas.', '/images/Luna.png'],
+      ['Milo', 'Siames', 12, 'Tranquilo y observador, perfecto compañero de lectura.', '/images/Milo.png'],
+      ['Canela', 'Persa', 6, 'Dulce y dormilona, ama los rincones soleados.', '/images/Canela.png'],
+      ['Simba', 'Maine Coon', 10, 'Aventurero y valiente, siempre explorando nuevos lugares.', '/images/Simba.png'],
+      ['Nina', 'Angora', 4, 'Timida al principio pero muy leal cuando te conoce.', '/images/Nina.png'],
+      ['Felix', 'Mestizo', 18, 'Independiente y elegante, le gusta observar desde las alturas.', '/images/Felix.png'],
+      ['Cleo', 'Bengal', 7, 'Energetica y atletica, necesita espacio para jugar.', '/images/Cleo.png'],
+      ['Tomas', 'Ragdoll', 14, 'Relajado y sociable, se lleva bien con otros animales.', '/images/Tomas.png'],
+      ['Mia', 'Mestizo', 3, 'Curiosa y traviesa, siempre buscando aventuras.', '/images/Mia.png'],
+      ['Pancho', 'Bombay', 24, 'Calmado y maduro, ideal para hogares tranquilos.', '/images/Pancho.png'],
     ];
 
     for (const cat of cats) {
