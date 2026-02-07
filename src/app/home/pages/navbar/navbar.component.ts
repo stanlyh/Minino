@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
     <nav class="bg-dracula-current shadow-md shadow-black/20">
       <div class="flex items-center justify-between px-4 py-3 md:px-6">
@@ -12,6 +13,9 @@ import { AuthService } from '../../../auth/services/auth.service';
 
         <!-- Desktop menu -->
         <div class="hidden items-center gap-4 md:flex">
+          <a routerLink="/register-home" class="text-sm text-dracula-cyan transition hover:text-dracula-pink">
+            Registrar hogar
+          </a>
           <span class="text-sm text-dracula-fg">{{ authService.user()?.name }}</span>
           <button
             (click)="authService.logout()"
@@ -43,6 +47,13 @@ import { AuthService } from '../../../auth/services/auth.service';
       @if (menuOpen()) {
         <div class="border-t border-dracula-bg/30 px-4 pb-3 pt-2 md:hidden">
           <span class="block py-2 text-sm text-dracula-fg">{{ authService.user()?.name }}</span>
+          <a
+            routerLink="/register-home"
+            (click)="menuOpen.set(false)"
+            class="block py-2 text-sm text-dracula-cyan transition hover:text-dracula-pink"
+          >
+            Registrar hogar
+          </a>
           <button
             (click)="authService.logout()"
             class="mt-1 w-full rounded-lg bg-dracula-red/20 px-4 py-2 text-sm font-medium text-dracula-red transition hover:bg-dracula-red/30"

@@ -39,6 +39,13 @@ export class CatsService {
     return this.db.getAll('SELECT * FROM adoption_homes');
   }
 
+  addHome(ownerName: string, catName: string, lat: number, lng: number): void {
+    this.db.run(
+      'INSERT INTO adoption_homes (owner_name, cat_name, lat, lng) VALUES (?, ?, ?, ?)',
+      [ownerName, catName, lat, lng]
+    );
+  }
+
   getStats(): AdoptionStats {
     const total = this.db.count('SELECT COUNT(*) FROM cats');
     const adopted = this.db.count('SELECT COUNT(*) FROM cats WHERE adopted = 1');
