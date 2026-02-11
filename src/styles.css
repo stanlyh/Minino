@@ -23,4 +23,17 @@ body {
   background-color: #282a36;
   color: #f8f8f2;
   min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23bd93f9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3C!-- Cabeza --%3E%3Cellipse cx='100' cy='100' rx='52' ry='48'/%3E%3C!-- Oreja izquierda --%3E%3Cpath d='M58 62 L42 28 L72 52'/%3E%3C!-- Oreja derecha --%3E%3Cpath d='M142 62 L158 28 L128 52'/%3E%3C!-- Interior oreja izq --%3E%3Cpath d='M60 58 L50 36 L70 54'/%3E%3C!-- Interior oreja der --%3E%3Cpath d='M140 58 L150 36 L130 54'/%3E%3C!-- Ojo izquierdo --%3E%3Cellipse cx='80' cy='92' rx='10' ry='11'/%3E%3Cellipse cx='82' cy='90' rx='4' ry='6'/%3E%3C!-- Ojo derecho --%3E%3Cellipse cx='120' cy='92' rx='10' ry='11'/%3E%3Cellipse cx='118' cy='90' rx='4' ry='6'/%3E%3C!-- Nariz --%3E%3Cpath d='M96 108 L100 114 L104 108 Z'/%3E%3C!-- Boca --%3E%3Cpath d='M100 114 Q94 122 86 118'/%3E%3Cpath d='M100 114 Q106 122 114 118'/%3E%3C!-- Bigotes izquierdos --%3E%3Cline x1='74' y1='104' x2='38' y2='98'/%3E%3Cline x1='74' y1='110' x2='36' y2='112'/%3E%3Cline x1='74' y1='116' x2='40' y2='126'/%3E%3C!-- Bigotes derechos --%3E%3Cline x1='126' y1='104' x2='162' y2='98'/%3E%3Cline x1='126' y1='110' x2='164' y2='112'/%3E%3Cline x1='126' y1='116' x2='160' y2='126'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  background-repeat: repeat;
 }
