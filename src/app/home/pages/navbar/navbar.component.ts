@@ -13,6 +13,9 @@ import { AuthService } from '../../../auth/services/auth.service';
 
         <!-- Desktop menu -->
         <div class="hidden items-center gap-4 md:flex">
+          <a routerLink="/register-cat" class="text-sm text-dracula-cyan transition hover:text-dracula-pink">
+            Registrar gatito
+          </a>
           <a routerLink="/register-home" class="text-sm text-dracula-cyan transition hover:text-dracula-pink">
             Registrar hogar
           </a>
@@ -47,6 +50,13 @@ import { AuthService } from '../../../auth/services/auth.service';
       @if (menuOpen()) {
         <div class="border-t border-dracula-bg/30 px-4 pb-3 pt-2 md:hidden">
           <span class="block py-2 text-sm text-dracula-fg">{{ authService.user()?.name }}</span>
+          <a
+            routerLink="/register-cat"
+            (click)="menuOpen.set(false)"
+            class="block py-2 text-sm text-dracula-cyan transition hover:text-dracula-pink"
+          >
+            Registrar gatito
+          </a>
           <a
             routerLink="/register-home"
             (click)="menuOpen.set(false)"

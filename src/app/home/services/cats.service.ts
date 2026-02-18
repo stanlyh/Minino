@@ -39,6 +39,13 @@ export class CatsService {
     return this.db.getAll('SELECT * FROM adoption_homes');
   }
 
+  addCat(name: string, breed: string, ageMonths: number, description: string, imageUrl: string): void {
+    this.db.run(
+      'INSERT INTO cats (name, breed, age_months, description, image_url) VALUES (?, ?, ?, ?, ?)',
+      [name, breed, ageMonths, description, imageUrl]
+    );
+  }
+
   addHome(ownerName: string, catName: string, lat: number, lng: number): void {
     this.db.run(
       'INSERT INTO adoption_homes (owner_name, cat_name, lat, lng) VALUES (?, ?, ?, ?)',

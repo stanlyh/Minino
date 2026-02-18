@@ -25,6 +25,12 @@ export const routes: Routes = [
       import('./home/pages/home-page/home-page.component').then(m => m.HomePageComponent),
   },
   {
+    path: 'register-cat',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./home/pages/register-cat-page/register-cat-page.component').then(m => m.RegisterCatPageComponent),
+  },
+  {
     path: 'register-home',
     canActivate: [authGuard],
     loadComponent: () =>
