@@ -244,6 +244,162 @@ El fondo de la aplicacion incluye un patron de la silueta de un gatito dibujado 
 - **Client-side only**: No hay backend; todos los datos viven en el navegador
 - **Persistencia**: localStorage para base de datos y sesion de usuario
 
+---
+
+### Flujo de navegacion
+
+```mermaid
+flowchart LR
+    Browser[/"URL del navegador"/] --> Router{Angular Router}
+    Router -->|"/ · /**"| Redir["→ /login"]
+    Router -->|"/login"| Login[LoginPageComponent]
+    Router -->|"/register"| Register[RegisterPage]
+    Router -->|"/forgot-password"| Forgot[ForgotPasswordPageComponent]
+    Router -->|"/home · /register-cat · /register-home"| Guard{authGuard}
+    Guard -->|"no autenticado"| Redir
+    Guard -->|"autenticado"| Protected["Rutas protegidas"]
+    Protected --> Home[HomePageComponent]
+    Protected --> RegCat[RegisterCatPageComponent]
+    Protected --> RegHome[RegisterHomePageComponent]
+    Redir --> Login
+```
+
+---
+
+### Jerarquia de componentes
+
+```mermaid
+graph TD
+    App["App (raiz)"] --> RouterOutlet["RouterOutlet"]
+
+    RouterOutlet --> Login["LoginPageComponent"]
+    RouterOutlet --> Register["RegisterPage"]
+    RouterOutlet --> Forgot["ForgotPasswordPageComponent"]
+    RouterOutlet --> Home["HomePageComponent"]
+    RouterOutlet --> RegCat["RegisterCatPageComponent"]
+    RouterOutlet --> RegHome["RegisterHomePageComponent"]
+
+    Home --> Navbar["NavbarComponent"]
+    Home --> CatCard["CatCardComponent ×3"]
+    Home --> AdoptionMap["AdoptionMapComponent"]
+    Home --> Stats["StatsComponent"]
+
+    RegCat --> Navbar
+    RegHome --> Navbar
+
+    style CatCard fill:#6272a4,color:#f8f8f2
+    style AdoptionMap fill:#6272a4,color:#f8f8f2
+    style Stats fill:#6272a4,color:#f8f8f2
+```
+
+---
+
+### Capas de la aplicacion y dependencias de servicios
+
+```mermaid
+graph TB
+    subgraph Datos["Capa de datos"]
+        DB["DatabaseService\nsql.js — SQLite en memoria\nPersistido en localStorage"]
+    end
+
+    subgraph Servicios["Capa de servicios"]
+        Auth["AuthService\nSesion · Signals"]
+        Cats["CatsService\nGatitos · Hogares · Stats"]
+        Theme["ThemeService\nTema claro / oscuro"]
+    end
+
+    subgraph UIAuth["UI — Autenticacion"]
+        Login["LoginPageComponent"]
+        Regist["RegisterPage"]
+        Forgot["ForgotPasswordPageComponent"]
+    end
+
+    subgraph UIHome["UI — Home"]
+        Navbar["NavbarComponent"]
+        Home["HomePageComponent"]
+        RegCat["RegisterCatPageComponent"]
+        RegHome["RegisterHomePageComponent"]
+    end
+
+    subgraph Presentacionales["Componentes presentacionales"]
+        CatCard["CatCardComponent"]
+        Map["AdoptionMapComponent"]
+        Stats["StatsComponent"]
+    end
+
+    DB --> Auth
+    DB --> Cats
+    Auth --> Login
+    Auth --> Regist
+    Auth --> Forgot
+    Auth --> Navbar
+    Theme --> Navbar
+    Cats --> Home
+    Cats --> RegCat
+    Cats --> RegHome
+    DB --> Home
+    DB --> RegCat
+    DB --> RegHome
+```
+
+---
+
+### Flujo de datos
+
+```mermaid
+flowchart TD
+    LS[("localStorage\nminino_db")] -->|"restaura al iniciar"| DB
+    DB["DatabaseService\nSQLite en memoria"] -->|"persiste en cada escritura"| LS
+
+    DB -->|"getAll · get · count"| Auth["AuthService"]
+    DB -->|"getAll · count"| Cats["CatsService"]
+
+    Auth -->|"user signal"| Navbar["NavbarComponent"]
+    Auth -->|"isLoggedIn"| Guard["authGuard"]
+
+    Cats -->|"getCats()"| Home["HomePageComponent"]
+    Cats -->|"getAdoptionHomes()"| Home
+    Cats -->|"getStats()"| Home
+    Cats -->|"addCat()"| RegCat["RegisterCatPageComponent"]
+    Cats -->|"addHome()"| RegHome["RegisterHomePageComponent"]
+
+    Home -->|"input: cat"| CatCard["CatCardComponent"]
+    Home -->|"input: homes"| Map["AdoptionMapComponent"]
+    Home -->|"input: stats"| Stats["StatsComponent"]
+```
+
+---
+
+### Esquema de base de datos
+
+```mermaid
+erDiagram
+    users {
+        INTEGER id PK
+        TEXT name
+        TEXT email
+        TEXT password
+        TEXT created_at
+    }
+    cats {
+        INTEGER id PK
+        TEXT name
+        TEXT breed
+        INTEGER age_months
+        TEXT description
+        TEXT image_url
+        INTEGER adopted
+    }
+    adoption_homes {
+        INTEGER id PK
+        TEXT owner_name
+        TEXT cat_name
+        REAL lat
+        REAL lng
+        TEXT adopted_at
+    }
+```
+
 ## Testing
 
 ```bash

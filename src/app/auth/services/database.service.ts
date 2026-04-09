@@ -143,8 +143,15 @@ export class DatabaseService {
   }
 
   private persist(): void {
-    const data = this.db.export();
-    const binary = String.fromCharCode(...data);
-    localStorage.setItem('minino_db', btoa(binary));
+    try {
+      const data: Uint8Array = this.db.export();
+      let binary = '';
+      for (let i = 0; i < data.length; i++) {
+        binary += String.fromCharCode(data[i]);
+      }
+      localStorage.setItem('minino_db', btoa(binary));
+    } catch {
+      // QuotaExceededError u otros errores de localStorage no deben romper la app
+    }
   }
 }
