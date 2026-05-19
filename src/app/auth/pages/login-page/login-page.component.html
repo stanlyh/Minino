@@ -1,20 +1,56 @@
-<div class="flex min-h-screen items-center justify-center bg-dracula-bg px-4 py-6 sm:px-6 lg:px-8">
-  <div class="w-full max-w-sm rounded-2xl bg-dracula-current p-6 shadow-lg shadow-black/30 sm:max-w-md sm:p-8 lg:max-w-lg lg:p-10">
-    <h1 class="mb-6 text-center text-2xl font-bold text-dracula-purple sm:text-3xl">Iniciar sesion</h1>
+<div class="login-bg">
+  <!-- Decorative SVG beams -->
+  <svg class="beams-svg" aria-hidden="true" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow-cyan" x="-50%" y="-500%" width="200%" height="1100%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <filter id="glow-pink" x="-50%" y="-500%" width="200%" height="1100%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <line x1="-5%" y1="88%" x2="105%" y2="18%" stroke="#8be9fd" stroke-width="1.5" opacity="0.75" filter="url(#glow-cyan)"/>
+    <line x1="-5%" y1="94%" x2="105%" y2="30%" stroke="#ff79c6" stroke-width="1" opacity="0.55" filter="url(#glow-pink)"/>
+  </svg>
 
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-4 sm:space-y-5">
+  <!-- Glowing orb top-right -->
+  <div class="orb" aria-hidden="true"></div>
+
+  <!-- Login card -->
+  <div class="login-card">
+
+    <!-- Brand -->
+    <div class="brand-header">
+      <h1 class="brand-name">
+        <span class="brand-primary">Mini</span><span class="brand-accent">no</span>
+      </h1>
+      <span class="version-badge">v1.0</span>
+    </div>
+    <p class="login-subtitle">Bienvenido de nuevo</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="form-fields">
+
       <!-- Email -->
-      <div>
-        <label for="email" class="mb-1 block text-sm font-medium text-dracula-fg">Correo</label>
+      <div class="field-group">
+        <label for="email" class="field-label">Correo</label>
         <input
           id="email"
           type="email"
           formControlName="email"
           placeholder="correo@ejemplo.com"
-          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-3 py-2 text-sm text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40 sm:px-4 sm:py-2.5 sm:text-base"
+          class="field-input"
         />
         @if (form.get('email')?.invalid && (form.get('email')?.touched || submitted)) {
-          <div class="mt-1 text-sm text-dracula-red">
+          <div class="field-error">
             @if (form.get('email')?.hasError('required')) { <span>El correo es obligatorio.</span> }
             @if (form.get('email')?.hasError('email')) { <span>Formato de correo invalido.</span> }
           </div>
@@ -22,50 +58,43 @@
       </div>
 
       <!-- Password -->
-      <div>
-        <label for="password" class="mb-1 block text-sm font-medium text-dracula-fg">Contrasena</label>
+      <div class="field-group">
+        <label for="password" class="field-label">Contrasena</label>
         <input
           id="password"
           type="password"
           formControlName="password"
-          placeholder="******"
-          class="w-full rounded-lg border border-dracula-comment bg-dracula-bg px-3 py-2 text-sm text-dracula-fg placeholder-dracula-comment outline-none transition focus:border-dracula-purple focus:ring-2 focus:ring-dracula-purple/40 sm:px-4 sm:py-2.5 sm:text-base"
+          placeholder="••••••"
+          class="field-input"
         />
         @if (form.get('password')?.invalid && (form.get('password')?.touched || submitted)) {
-          <div class="mt-1 text-sm text-dracula-red">
+          <div class="field-error">
             @if (form.get('password')?.hasError('required')) { <span>La contrasena es obligatoria.</span> }
-            @if (form.get('password')?.hasError('minlength')) { <span>La contrasena debe tener al menos 6 caracteres.</span> }
+            @if (form.get('password')?.hasError('minlength')) { <span>Minimo 6 caracteres.</span> }
           </div>
         }
       </div>
 
       <!-- Forgot password -->
-      <div class="text-right">
-        <a routerLink="/forgot-password" class="text-sm text-dracula-cyan hover:text-dracula-pink transition">
-          Olvidaste tu contrasena?
-        </a>
+      <div class="forgot-row">
+        <a routerLink="/forgot-password" class="forgot-link">Olvidaste tu contrasena?</a>
       </div>
 
       <!-- Submit -->
-      <button
-        type="submit"
-        [disabled]="form.invalid"
-        class="w-full rounded-lg bg-dracula-purple py-2.5 font-semibold text-dracula-bg transition hover:bg-dracula-pink disabled:cursor-not-allowed disabled:opacity-50 sm:py-3"
-      >
+      <button type="submit" [disabled]="form.invalid" class="submit-btn">
         Entrar
       </button>
+
     </form>
 
     @if (serverError) {
-      <div class="mt-4 rounded-lg bg-dracula-red/20 p-3 text-center text-sm text-dracula-red">
-        {{ serverError }}
-      </div>
+      <div class="server-error">{{ serverError }}</div>
     }
 
-    <!-- Link to register -->
-    <p class="mt-6 text-center text-sm text-dracula-comment">
+    <p class="register-link-row">
       No tienes cuenta?
-      <a routerLink="/register" class="text-dracula-green hover:text-dracula-pink transition">Registrate</a>
+      <a routerLink="/register" class="register-link">Registrate</a>
     </p>
+
   </div>
 </div>
