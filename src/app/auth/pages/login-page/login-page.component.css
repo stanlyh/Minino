@@ -36,6 +36,18 @@
   pointer-events: none;
 }
 
+.cat-silhouette {
+  position: absolute;
+  bottom: -15px;
+  right: 20px;
+  height: 380px;
+  width: auto;
+  opacity: 0.09;
+  filter: drop-shadow(0 0 18px rgba(189, 147, 249, 0.45));
+  pointer-events: none;
+  z-index: 1;
+}
+
 .login-card {
   position: relative;
   z-index: 10;
