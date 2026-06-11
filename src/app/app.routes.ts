@@ -36,5 +36,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./home/pages/register-home-page/register-home-page.component').then(m => m.RegisterHomePageComponent),
   },
+  {
+    path: 'register-appointment',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./home/pages/register-appointment-page/register-appointment-page.component').then(m => m.RegisterAppointmentPageComponent),
+  },
   { path: '**', redirectTo: 'login' },
 ];

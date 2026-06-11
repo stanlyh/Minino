@@ -20,6 +20,9 @@ import { ThemeService } from '../../../services/theme.service';
           <a routerLink="/register-home" class="text-sm text-dracula-cyan transition hover:text-dracula-pink">
             Registrar hogar
           </a>
+          <a routerLink="/register-appointment" class="text-sm text-dracula-cyan transition hover:text-dracula-pink">
+            Cita veterinaria
+          </a>
           <span class="text-sm text-dracula-fg">{{ authService.user()?.name }}</span>
           <button
             (click)="themeService.toggle()"
@@ -79,6 +82,13 @@ import { ThemeService } from '../../../services/theme.service';
             class="block py-2 text-sm text-dracula-cyan transition hover:text-dracula-pink"
           >
             Registrar hogar
+          </a>
+          <a
+            routerLink="/register-appointment"
+            (click)="menuOpen.set(false)"
+            class="block py-2 text-sm text-dracula-cyan transition hover:text-dracula-pink"
+          >
+            Cita veterinaria
           </a>
           <button
             (click)="themeService.toggle()"

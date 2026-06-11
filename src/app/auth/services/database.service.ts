@@ -57,6 +57,19 @@ export class DatabaseService {
       )
     `);
 
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS vet_appointments (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        cat_name TEXT NOT NULL,
+        vet_name TEXT NOT NULL,
+        clinic TEXT NOT NULL,
+        appointment_date TEXT NOT NULL,
+        reason TEXT NOT NULL,
+        status TEXT DEFAULT 'pendiente',
+        created_at TEXT DEFAULT (datetime('now'))
+      )
+    `);
+
     this.seedData();
     this.persist();
   }
