@@ -110,13 +110,21 @@ const INPUT_CLASS =
                 }
               </div>
 
-              <!-- Submit -->
-              <button
-                type="submit"
-                class="w-full rounded-lg bg-dracula-purple py-2.5 font-semibold text-dracula-bg transition hover:bg-dracula-pink sm:py-3"
-              >
-                Registrar gatito
-              </button>
+              <!-- Submit / Cancel -->
+              <div class="flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="submit"
+                  class="w-full rounded-lg bg-dracula-purple py-2.5 font-semibold text-dracula-bg transition hover:bg-dracula-pink sm:py-3"
+                >
+                  Registrar gatito
+                </button>
+                <a
+                  routerLink="/home"
+                  class="w-full rounded-lg bg-dracula-comment/30 py-2.5 text-center font-semibold text-dracula-fg transition hover:bg-dracula-comment/50 sm:py-3"
+                >
+                  Cancelar
+                </a>
+              </div>
             </form>
           }
 
